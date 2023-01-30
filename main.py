@@ -18,6 +18,7 @@ class Example(QWidget):
         self.tmap = 'map'
         self.getImage()
         self.initUI()
+        print(1)
 
     def getImage(self):
         map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.X},{self.Y}&spn={self.spn},{self.spn}&l={self.tmap}"
@@ -35,10 +36,11 @@ class Example(QWidget):
             file.write(response.content)
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_PgUp:
-            self.spn += self.spn // 10
+        print(222)
+        if event.key() == 16777238:
             print(self.spn)
-        elif event.key() == Qt.Key_PgDown:
+            self.spn += self.spn // 10
+        if event.key() == 16777239:
             self.spn -= self.spn // 10
             print(self.spn)
 
@@ -117,6 +119,7 @@ class Example(QWidget):
         self.getImage()
         self.pixmap = QPixmap(self.map_file)
         self.image.setPixmap(self.pixmap)
+
 
     def closeEvent(self, event):
         """При закрытии формы подчищаем за собой"""
