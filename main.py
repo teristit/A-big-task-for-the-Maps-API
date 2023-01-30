@@ -86,10 +86,14 @@ class Example(QWidget):
         self.baton_mixed = QPushButton(self)
         self.baton_mixed.setGeometry(350, 10, 70, 30)
         self.baton_mixed.setText('Смешаные')
+        self.baton_bros = QPushButton(self)
+        self.baton_bros.setGeometry(420, 10, 70, 30)
+        self.baton_bros.setText('сброс')
         self.baton_search.clicked.connect(self.click_search)
         self.baton_map.clicked.connect(self.click_map)
         self.baton_sat.clicked.connect(self.click_sat)
         self.baton_mixed.clicked.connect(self.click_mixed)
+        self.baton_bros.clicked.connect(self.click_bros)
 
     def click_search(self):
         toponym_to_find = self.line1.text()
@@ -135,8 +139,16 @@ class Example(QWidget):
     def click_mixed(self):
         self.tmap = 'sat%2Cskl'
         self.getImage()
+
+    def click_bros(self):
+        self.line1.setText('')
+        self.X, self.Y = 37.530887, 55.703118
+        self.spn = 0.002
+        self.tmap = 'map'
+        self.getImage()
         self.pixmap = QPixmap(self.map_file)
         self.image.setPixmap(self.pixmap)
+
 
 
     def closeEvent(self, event):
