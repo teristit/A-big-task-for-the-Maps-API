@@ -3,6 +3,7 @@ import sys
 
 import requests
 from PyQt5.QtCore import Qt
+from pynput import keyboard
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from PyQt5.QtWidgets import QPushButton, QLineEdit
@@ -42,6 +43,9 @@ class Example(QWidget):
             self.spn += self.spn // 10
         if event.key() == 16777239:
             self.spn -= self.spn // 10
+            print(self.spn)
+        if event.key() == Ot.Key:
+            self.ч -= self.spn // 10
             print(self.spn)
 
     def initUI(self):
@@ -106,3 +110,5 @@ if __name__ == '__main__':
     ex = Example()
     ex.show()
     sys.exit(app.exec())
+
+
