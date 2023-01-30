@@ -4,6 +4,7 @@ import sys
 import requests
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
+from PyQt5.QtWidgets import QPushButton, QLineEdit
 
 SCREEN_SIZE = [600, 450]
 
@@ -42,7 +43,8 @@ class Example(QWidget):
         self.image.move(0, 0)
         self.image.resize(600, 550)
         self.image.setPixmap(self.pixmap)
-
+        self.line1 = QLineEdit(self)
+        self.line1.setGeometry(10, 10, 150, 30)
     def closeEvent(self, event):
         """При закрытии формы подчищаем за собой"""
         os.remove(self.map_file)
