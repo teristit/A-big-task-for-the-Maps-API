@@ -2,6 +2,7 @@ import os
 import sys
 
 import requests
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from PyQt5.QtWidgets import QPushButton, QLineEdit
@@ -12,10 +13,10 @@ SCREEN_SIZE = [600, 450]
 class Example(QWidget):
     def __init__(self):
         super().__init__()
-        X,Y = 37.530887,55.703118
-        spn = 0.002
-        tmap = 'map'
-        self.getImage(X,Y,spn,tmap)
+        self.X,self.Y = 37.530887,55.703118
+        self.spn = 0.002
+        self.tmap = 'map'
+        self.getImage(self.X,self.Y,self.spn,self.tmap)
         self.initUI()
 
     def getImage(self,X,Y,spn,tmap):
@@ -32,6 +33,12 @@ class Example(QWidget):
         self.map_file = "map.png"
         with open(self.map_file, "wb") as file:
             file.write(response.content)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Up:
+            self.spn += 0.001
+        elif event.key() == Qt.Key_Down:
+            self.spn += 0.001
 
     def initUI(self):
         self.setGeometry(100, 100, *SCREEN_SIZE)
