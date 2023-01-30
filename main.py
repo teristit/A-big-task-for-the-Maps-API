@@ -44,9 +44,18 @@ class Example(QWidget):
         if event.key() == 16777239:
             self.spn -= self.spn // 10
             print(self.spn)
-        if event.key() == Ot.Key:
-            self.ч -= self.spn // 10
-            print(self.spn)
+        if event.key() == Qt.Key_Left:
+            self.X -= 0.01
+            print(self.X)
+        if event.key() == Qt.Key_Right:
+            self.X += 0.01
+            print(self.X, 'R')
+        if event.key() == Qt.Key_Up:
+            self.Y -= 0.01
+            print(self.Y)
+        if event.key() == Qt.Key_Down:
+            self.Y += 0.01
+            print(self.Y, 'D')
 
     def initUI(self):
         self.setGeometry(100, 100, *SCREEN_SIZE)
