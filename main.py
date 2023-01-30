@@ -16,11 +16,11 @@ class Example(QWidget):
         self.X,self.Y = 37.530887,55.703118
         self.spn = 0.002
         self.tmap = 'map'
-        self.getImage(self.X,self.Y,self.spn,self.tmap)
+        self.getImage()
         self.initUI()
 
-    def getImage(self,X,Y,spn,tmap):
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll={X},{Y}&spn={spn},0.002&l={tmap}"
+    def getImage(self):
+        map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.X},{self.Y}&spn={self.spn},{self.spn}&l={self.tmap}"
         response = requests.get(map_request)
 
         if not response:
@@ -35,10 +35,12 @@ class Example(QWidget):
             file.write(response.content)
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Up:
-            self.spn += 0.001
-        elif event.key() == Qt.Key_Down:
-            self.spn += 0.001
+        if event.key() == Qt.Key_PgUp:
+            self.spn += self.spn // 10
+            print(self.spn)
+        elif event.key() == Qt.Key_PgDown:
+            self.spn -= self.spn // 10
+            print(self.spn)
 
     def initUI(self):
         self.setGeometry(100, 100, *SCREEN_SIZE)
