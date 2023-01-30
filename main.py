@@ -72,7 +72,33 @@ class Example(QWidget):
         self.baton_mixed.clicked.connect(self.click_mixed)
 
     def click_search(self):
-        pass
+        toponym_to_find = self.line1.text()
+        geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
+
+        geocoder_params = {
+            "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
+            "geocode": toponym_to_find,
+            "format": "json"}
+
+        response = requests.get(geocoder_api_server, params=geocoder_params)
+
+        if not response:
+            # обработка ошибочной ситуации
+            pass
+
+        # Преобразуем ответ в json-объект
+        json_response = response.json()
+        # Получаем первый топоним из ответа геокодера.
+        toponym = json_response["response"]["GeoObjectCollection"][
+            "featureMember"][0]["GeoObject"]
+        # Координаты центра топонима:
+        toponym_coodrinates = toponym["Point"]["pos"]
+        # Долгота и широта:
+        self.X, self.Y = toponym_coodrinates.split(" ")
+        self.getImage()
+        self.pixmap = QPixmap(self.map_file)
+        self.image.setPixmap(self.pixmap)
+        #  delta = "0.005"
 
     def click_map(self):
         self.tmap = 'map'
@@ -85,7 +111,6 @@ class Example(QWidget):
         self.getImage()
         self.pixmap = QPixmap(self.map_file)
         self.image.setPixmap(self.pixmap)
-
 
     def click_mixed(self):
         self.tmap = 'sat%2Cskl'
