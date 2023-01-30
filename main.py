@@ -39,10 +39,15 @@ class Example(QWidget):
     def keyPressEvent(self, event):
         print(222)
         if event.key() == 16777238:
-            print(self.spn)
-            self.spn += self.spn // 10
+            self.spn += self.spn / 10
+            self.getImage()
+            self.pixmap = QPixmap(self.map_file)
+            self.image.setPixmap(self.pixmap)
         if event.key() == 16777239:
-            self.spn -= self.spn // 10
+            self.spn -= self.spn / 10
+            self.getImage()
+            self.pixmap = QPixmap(self.map_file)
+            self.image.setPixmap(self.pixmap)
             print(self.spn)
         if event.key() == Qt.Key_Left:
             self.X -= 0.01
