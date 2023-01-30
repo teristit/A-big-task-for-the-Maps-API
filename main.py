@@ -13,7 +13,7 @@ SCREEN_SIZE = [600, 450]
 class Example(QWidget):
     def __init__(self):
         super().__init__()
-        self.X,self.Y = 37.530887,55.703118
+        self.X, self.Y = 37.530887, 55.703118
         self.spn = 0.002
         self.tmap = 'map'
         self.getImage()
@@ -66,6 +66,33 @@ class Example(QWidget):
         self.baton_mixed = QPushButton(self)
         self.baton_mixed.setGeometry(350, 10, 70, 30)
         self.baton_mixed.setText('Смешаные')
+        self.baton_search.clicked.connect(self.click_search)
+        self.baton_map.clicked.connect(self.click_map)
+        self.baton_sat.clicked.connect(self.click_sat)
+        self.baton_mixed.clicked.connect(self.click_mixed)
+
+    def click_search(self):
+        pass
+
+    def click_map(self):
+        self.tmap = 'map'
+        self.getImage()
+        self.pixmap = QPixmap(self.map_file)
+        self.image.setPixmap(self.pixmap)
+
+    def click_sat(self):
+        self.tmap = 'sat'
+        self.getImage()
+        self.pixmap = QPixmap(self.map_file)
+        self.image.setPixmap(self.pixmap)
+
+
+    def click_mixed(self):
+        self.tmap = 'sat%2Cskl'
+        self.getImage()
+        self.pixmap = QPixmap(self.map_file)
+        self.image.setPixmap(self.pixmap)
+
     def closeEvent(self, event):
         """При закрытии формы подчищаем за собой"""
         os.remove(self.map_file)
